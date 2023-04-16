@@ -16,11 +16,11 @@ class LanguageCollection(
     jedisPool, collection
 ), PlayerCollection {
 
-    fun update(languageUser: LanguageUser) {
+    fun updateUser(languageUser: LanguageUser) {
         updateCache("language_user#${languageUser.uuid}", languageUser)
     }
 
-    fun getLanguage(uuid: UUID): LanguageUser? {
+    fun getUser(uuid: UUID): LanguageUser? {
         return getCache("language_user#$uuid", LanguageUser::uuid eq uuid, LanguageUser::class)
     }
 

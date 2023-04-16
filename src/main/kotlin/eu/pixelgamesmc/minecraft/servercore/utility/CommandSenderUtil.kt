@@ -18,7 +18,7 @@ object CommandSenderUtil {
         var language = LanguageUser.Language.GERMAN
         if (sender is Player) {
             val languageCollection = PixelDatabase.getCollection(LanguageCollection::class)
-            languageCollection.getLanguage(sender.uniqueId)?.let {
+            languageCollection.getUser(sender.uniqueId)?.let {
                 language = it.language
             }
         }
