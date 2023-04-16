@@ -1,5 +1,6 @@
 package eu.pixelgamesmc.minecraft.servercore
 
+import eu.pixelgamesmc.minecraft.servercore.component.ComponentProvider
 import eu.pixelgamesmc.minecraft.servercore.database.Credentials
 import eu.pixelgamesmc.minecraft.servercore.database.PixelDatabase
 import eu.pixelgamesmc.minecraft.servercore.database.collection.cache.CacheCollection
@@ -16,6 +17,8 @@ import org.litote.kmongo.getCollection
 class ServerCore: JavaPlugin() {
 
     override fun onEnable() {
+        ComponentProvider.loadComponents(this)
+
         PixelDatabase.connect(PluginUtil.loadConfiguration(this, "database", Credentials(
             Credentials.Mongo(true, "", "database"),
             Credentials.Redis(true, "", 2324, "", "")
