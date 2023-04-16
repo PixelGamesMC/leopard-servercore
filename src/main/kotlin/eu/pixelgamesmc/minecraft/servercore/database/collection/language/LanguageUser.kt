@@ -8,7 +8,7 @@ import java.util.*
 @Serializable
 data class LanguageUser(
     @SerialName("_id") @Contextual val uuid: UUID,
-    val language: Language
+    var language: Language
 ) {
     enum class Language {
         GERMAN
