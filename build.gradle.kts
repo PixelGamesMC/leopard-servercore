@@ -1,4 +1,5 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import java.io.ByteArrayOutputStream
 
 plugins {
     kotlin("jvm") version "1.8.0"
@@ -15,8 +16,17 @@ plugins {
     id("maven-publish")
 }
 
+val gitDescribe: String by lazy {
+    val stdout = ByteArrayOutputStream()
+    rootProject.exec {
+        commandLine("git", "rev-parse", "--verify", "--short", "HEAD")
+        standardOutput = stdout
+    }
+    stdout.toString().trim()
+}
+
 group = "eu.pixelgamesmc.minecraft"
-version = "1.1.0"
+version = gitDescribe
 
 val pixelUsername: String by project
 val pixelPassword: String by project
@@ -92,7 +102,15 @@ bukkit {
 
 publishing {
     publications {
+        create<MavenPublication>("Version") {
+            from(components["java"])
+
+            artifact(tasks.kotlinSourcesJar.get())
+        }
+
         create<MavenPublication>("Default") {
+            version = "-SNAPSHOT"
+
             from(components["java"])
 
             artifact(tasks.kotlinSourcesJar.get())
