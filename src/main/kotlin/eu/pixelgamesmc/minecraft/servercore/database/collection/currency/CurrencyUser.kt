@@ -8,5 +8,5 @@ import java.util.UUID
 @Serializable
 data class CurrencyUser(
     @SerialName("_id") @Contextual val uuid: UUID,
-    var value: Long
+    var value: Int
 )
