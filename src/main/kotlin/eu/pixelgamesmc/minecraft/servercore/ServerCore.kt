@@ -4,6 +4,7 @@ import eu.pixelgamesmc.minecraft.servercore.component.ComponentProvider
 import eu.pixelgamesmc.minecraft.servercore.database.Credentials
 import eu.pixelgamesmc.minecraft.servercore.database.PixelDatabase
 import eu.pixelgamesmc.minecraft.servercore.database.collection.cache.CacheCollection
+import eu.pixelgamesmc.minecraft.servercore.database.collection.currency.CurrencyCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.language.LanguageCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.group.PermissionGroupCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.user.PermissionUserCollection
@@ -29,7 +30,8 @@ class ServerCore: JavaPlugin() {
                 CacheCollection(jedisPool, mongoDatabase.getCollection()),
                 LanguageCollection(jedisPool, mongoDatabase.getCollection()),
                 PermissionUserCollection(jedisPool, mongoDatabase.getCollection()),
-                PermissionGroupCollection(jedisPool, mongoDatabase.getCollection())
+                PermissionGroupCollection(jedisPool, mongoDatabase.getCollection()),
+                CurrencyCollection(jedisPool, mongoDatabase.getCollection())
             )
         }
 
