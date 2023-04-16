@@ -3,11 +3,23 @@ package eu.pixelgamesmc.minecraft.servercore.utility
 import eu.pixelgamesmc.minecraft.servercore.database.PixelDatabase
 import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.group.PermissionGroupCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.user.PermissionUserCollection
+import eu.pixelgamesmc.minecraft.servercore.scoreboard.Sidebar
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import java.util.*
 
 object PlayerUtil {
+
+    private val players: MutableMap<UUID, Sidebar> = mutableMapOf()
+
+    fun setSidebar(player: Player, value: Sidebar) {
+        players[player.uniqueId] = value
+    }
+
+    fun getSidebar(player: Player): Sidebar? {
+        return players[player.uniqueId]
+    }
 
     fun updatePlayerList(player: Player) {
         Bukkit.getOnlinePlayers().forEach { onlinePlayer ->
