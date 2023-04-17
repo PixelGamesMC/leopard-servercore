@@ -1,0 +1,2 @@
+name: ServerCore
+main: eu.pixelgamesmc.minecraft.servercore.bungee.ServerCore
