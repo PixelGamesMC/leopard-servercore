@@ -32,7 +32,14 @@ val pixelUsername: String by project
 val pixelPassword: String by project
 
 repositories {
-    mavenCentral()
+    maven {
+        credentials {
+            username = pixelUsername
+            password = pixelPassword
+        }
+
+        url = uri("https://repository.pixelgamesmc.eu/releases")
+    }
 }
 
 dependencies {
@@ -42,8 +49,6 @@ dependencies {
     api("org.litote.kmongo:kmongo:4.8.0")
     api("org.litote.kmongo:kmongo-serialization:4.8.0")
     api("org.litote.kmongo:kmongo-id-serialization:4.8.0")
-
-    compileOnly("io.github.waterfallmc:waterfall-api:1.19-R0.1-SNAPSHOT")
 
     paperweight.paperDevBundle("1.19.4-R0.1-SNAPSHOT")
 }
@@ -97,7 +102,7 @@ tasks {
 bukkit {
     name = "ServerCore"
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
-    main = "eu.pixelgamesmc.minecraft.servercore.bukkit.ServerCore"
+    main = "eu.pixelgamesmc.minecraft.servercore.ServerCore"
     apiVersion = "1.19"
     authors = listOf("NitrinCloud")
 }
