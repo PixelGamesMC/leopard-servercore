@@ -21,21 +21,11 @@ object PixelDatabase {
     private val collections: MutableList<PixelCollection<*>> = mutableListOf()
 
     internal fun connect(credentials: Credentials) {
-        connectJedis(credentials)
         connectMongo(credentials)
     }
 
     internal fun disconnect() {
-        jedisPool.close()
         mongoClient.close()
-    }
-
-    private fun connectJedis(credentials: Credentials) {
-        jedisPool = if (credentials.redis.local) {
-            JedisPool()
-        } else {
-            JedisPool(credentials.redis.hostname, credentials.redis.port, credentials.redis.username, credentials.redis.password)
-        }
     }
 
     private fun connectMongo(credentials: Credentials) {
@@ -63,8 +53,8 @@ object PixelDatabase {
         collections.add(collection)
     }
 
-    fun registerCollections(creator: (JedisPool, MongoDatabase) -> List<PixelCollection<*>>) {
-        val collections = creator.invoke(jedisPool, mongoDatabase)
+    fun registerCollections(creator: (MongoDatabase) -> List<PixelCollection<*>>) {
+        val collections = creator.invoke(mongoDatabase)
 
         PixelDatabase.collections.addAll(collections)
     }

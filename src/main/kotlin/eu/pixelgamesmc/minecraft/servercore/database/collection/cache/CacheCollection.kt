@@ -10,10 +10,9 @@ import redis.clients.jedis.JedisPool
 import java.util.*
 
 class CacheCollection(
-    jedisPool: JedisPool,
     collection: MongoCollection<CacheUser>
 ): PixelCollection<CacheUser>(
-    jedisPool, collection
+    collection
 ), PlayerCollection {
 
     fun getCacheById(uuid: UUID): CacheUser? {

@@ -19,7 +19,7 @@ class PixelPermissible(private val player: Player): PermissibleBase(player) {
         val groupCollection = PixelDatabase.getCollection(PermissionGroupCollection::class)
         val permissionUser = userCollection.getUser(player.uniqueId)
         if (permissionUser != null) {
-            val permissionGroups = permissionUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) } + groupCollection.getDefaultGroup()
+            val permissionGroups = permissionUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) } + groupCollection.getDefaultGroups()
             permissionGroups.forEach { permissionGroup ->
                 if (permissionGroup.hasPermission(name)) {
                     return true

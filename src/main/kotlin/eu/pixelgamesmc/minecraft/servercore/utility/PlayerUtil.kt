@@ -38,13 +38,15 @@ object PlayerUtil {
 
         val targetUser = userCollection.getUser(target.uniqueId)
         if (targetUser != null) {
-            val group = targetUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) }.minByOrNull { it.weight } ?: groupCollection.getDefaultGroup()
+            val group = (targetUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) } + groupCollection.getDefaultGroups()).minByOrNull { it.weight }
 
-            val scoreboard = player.scoreboard
-            val team = scoreboard.getTeam("${group.weight}${group.name}") ?: scoreboard.registerNewTeam("${group.weight}${group.name}")
-            team.prefix(LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix))
-            team.color(NamedTextColor.GRAY)
-            team.addPlayer(target)
+            if (group != null) {
+                val scoreboard = player.scoreboard
+                val team = scoreboard.getTeam("${group.weight}${group.name}") ?: scoreboard.registerNewTeam("${group.weight}${group.name}")
+                team.prefix(LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix))
+                team.color(NamedTextColor.GRAY)
+                team.addPlayer(target)
+            }
         }
     }
 }

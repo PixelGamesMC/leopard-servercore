@@ -20,12 +20,16 @@ class PlayerChatListener: Listener {
 
             val targetUser = userCollection.getUser(source.uniqueId)
             if (targetUser != null) {
-                val group = targetUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) }.minByOrNull { it.weight } ?: groupCollection.getDefaultGroup()
+                val group = (targetUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) } + groupCollection.getDefaultGroups()).minByOrNull { it.weight }
 
-                LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix)
-                    .append(sourceDisplayName.color(NamedTextColor.GRAY))
-                    .append(Component.text(" » ", NamedTextColor.DARK_GRAY))
-                    .append(message.color(NamedTextColor.GRAY))
+                if (group != null) {
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix)
+                        .append(sourceDisplayName.color(NamedTextColor.GRAY))
+                        .append(Component.text(" » ", NamedTextColor.DARK_GRAY))
+                        .append(message.color(NamedTextColor.GRAY))
+                } else {
+                    Component.empty()
+                }
             } else {
                 Component.empty()
             }
