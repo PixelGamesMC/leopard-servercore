@@ -4,6 +4,7 @@ import eu.pixelgamesmc.minecraft.servercore.database.PixelDatabase
 import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.group.PermissionGroupCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.user.PermissionUserCollection
 import eu.pixelgamesmc.minecraft.servercore.scoreboard.Sidebar
+import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -42,7 +43,7 @@ object PlayerUtil {
             val scoreboard = player.scoreboard
             val team = scoreboard.getTeam("${group.weight}${group.name}") ?: scoreboard.registerNewTeam("${group.weight}${group.name}")
             team.prefix(LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix))
-            team.color(group.color)
+            team.color(NamedTextColor.GRAY)
             team.addPlayer(target)
         }
     }

@@ -23,7 +23,7 @@ class PlayerChatListener: Listener {
                 val group = targetUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) }.minByOrNull { it.weight } ?: groupCollection.getDefaultGroup()
 
                 LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix)
-                    .append(sourceDisplayName.color(group.color))
+                    .append(sourceDisplayName.color(NamedTextColor.GRAY))
                     .append(Component.text(" » ", NamedTextColor.DARK_GRAY))
                     .append(message.color(NamedTextColor.GRAY))
             } else {
