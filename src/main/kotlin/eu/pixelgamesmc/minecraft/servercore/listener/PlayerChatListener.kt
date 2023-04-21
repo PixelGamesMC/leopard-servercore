@@ -23,10 +23,17 @@ class PlayerChatListener: Listener {
                 val group = (targetUser.permissionGroups.mapNotNull { groupCollection.getGroup(it) } + groupCollection.getDefaultGroups()).minByOrNull { it.weight }
 
                 if (group != null) {
-                    LegacyComponentSerializer.legacyAmpersand().deserialize(group.prefix)
+                    val legacyAmpersand = LegacyComponentSerializer.legacyAmpersand()
+                    val newMessage = if (targetUser.hasPermission("pixelgamesmc.chat.color")) {
+                        val serializedMessage = legacyAmpersand.serialize(message)
+                        legacyAmpersand.deserialize(serializedMessage)
+                    } else {
+                        message
+                    }
+                    legacyAmpersand.deserialize(group.prefix)
                         .append(sourceDisplayName.color(NamedTextColor.GRAY))
                         .append(Component.text(" » ", NamedTextColor.DARK_GRAY))
-                        .append(message.color(NamedTextColor.GRAY))
+                        .append(newMessage.colorIfAbsent(NamedTextColor.GRAY))
                 } else {
                     Component.empty()
                 }

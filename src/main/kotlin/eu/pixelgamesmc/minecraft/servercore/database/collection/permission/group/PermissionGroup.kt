@@ -17,7 +17,7 @@ data class PermissionGroup(
 
     fun hasPermission(name: String): Boolean {
         permissions.forEach { permission ->
-            if (permission == "*" || permission == name || name.startsWith(permission)) {
+            if (permission == "*" || permission == name || (permission.endsWith(".*") && name.startsWith(permission.removeSuffix(".*")))) {
                 return true
             }
         }
