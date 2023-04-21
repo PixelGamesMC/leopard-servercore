@@ -14,7 +14,6 @@ import kotlin.reflect.KClass
 
 object PixelDatabase {
 
-    private lateinit var jedisPool: JedisPool
     private lateinit var mongoClient: MongoClient
     private lateinit var mongoDatabase: MongoDatabase
 
@@ -47,8 +46,8 @@ object PixelDatabase {
         CollectionNameFormatter.useSnakeCaseCollectionNameBuilder()
     }
 
-    fun registerCollection(creator: (JedisPool, MongoDatabase) -> PixelCollection<*>) {
-        val collection = creator.invoke(jedisPool, mongoDatabase)
+    fun registerCollection(creator: (MongoDatabase) -> PixelCollection<*>) {
+        val collection = creator.invoke(mongoDatabase)
 
         collections.add(collection)
     }
