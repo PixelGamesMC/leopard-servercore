@@ -21,7 +21,7 @@ open class Sidebar(name: String, private val player: Player, displayName: Compon
         scoreboard.getObjective(DisplaySlot.SIDEBAR)?.unregister()
 
         objective = scoreboard
-            .registerNewObjective(name, Criteria.DUMMY, displayName).also {
+            .registerNewObjective(name, "dummy", displayName).also {
                 it.displaySlot = DisplaySlot.SIDEBAR
             }
     }

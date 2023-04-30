@@ -6,10 +6,7 @@ import eu.pixelgamesmc.minecraft.servercore.database.PixelDatabase
 import eu.pixelgamesmc.minecraft.servercore.database.collection.cache.CacheCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.currency.CurrencyCollection
 import eu.pixelgamesmc.minecraft.servercore.database.collection.language.LanguageCollection
-import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.group.PermissionGroupCollection
-import eu.pixelgamesmc.minecraft.servercore.database.collection.permission.user.PermissionUserCollection
 import eu.pixelgamesmc.minecraft.servercore.listener.InventoryListener
-import eu.pixelgamesmc.minecraft.servercore.listener.PlayerChatListener
 import eu.pixelgamesmc.minecraft.servercore.listener.PlayerConnectionListener
 import eu.pixelgamesmc.minecraft.servercore.utility.PluginUtil
 import org.bukkit.plugin.java.JavaPlugin
@@ -30,13 +27,11 @@ class ServerCore: JavaPlugin() {
             listOf(
                 CacheCollection(mongoDatabase.getCollection()),
                 LanguageCollection(mongoDatabase.getCollection()),
-                PermissionUserCollection(mongoDatabase.getCollection()),
-                PermissionGroupCollection(mongoDatabase.getCollection()),
                 CurrencyCollection(mongoDatabase.getCollection())
             )
         }
 
-        PluginUtil.registerEvents(this, InventoryListener(), PlayerChatListener(), PlayerConnectionListener())
+        PluginUtil.registerEvents(this, InventoryListener(), PlayerConnectionListener())
     }
 
     override fun onDisable() {

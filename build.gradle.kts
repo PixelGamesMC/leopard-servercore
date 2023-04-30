@@ -50,7 +50,7 @@ dependencies {
     api("org.litote.kmongo:kmongo-serialization:4.8.0")
     api("org.litote.kmongo:kmongo-id-serialization:4.8.0")
 
-    paperweight.paperDevBundle("1.19.4-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.18.2-R0.1-SNAPSHOT")
 }
 
 kotlin {

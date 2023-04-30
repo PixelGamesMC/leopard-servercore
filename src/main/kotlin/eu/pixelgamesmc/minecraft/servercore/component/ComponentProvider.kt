@@ -48,6 +48,6 @@ object ComponentProvider {
             value = value.replace(replacement.first, replacement.second.toString())
         }
         val lines = value.split("\n")
-        return lines.map { LegacyComponentSerializer.legacyAmpersand().deserialize(it).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE) }
+        return lines.map { LegacyComponentSerializer.legacyAmpersand().deserialize(it).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE) }
     }
 }
