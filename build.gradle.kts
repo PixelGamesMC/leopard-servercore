@@ -103,8 +103,9 @@ bukkit {
     name = "ServerCore"
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     main = "eu.pixelgamesmc.minecraft.servercore.ServerCore"
-    apiVersion = "1.19"
+    apiVersion = "1.18"
     authors = listOf("NitrinCloud")
+    depend = listOf("SimpleCloud-Plugin")
 }
 
 publishing {
